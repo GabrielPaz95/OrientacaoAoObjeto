@@ -4,7 +4,7 @@ public class controleEstoque {
 	
 	public static void cadastrar() {
 		
-		System.out.println("Fim dos metodo cadastrar!");
+		System.out.println("cadastrado!");
 		
 	}
 	
