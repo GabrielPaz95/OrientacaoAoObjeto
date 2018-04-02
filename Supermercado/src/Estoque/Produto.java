@@ -35,14 +35,20 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
+	public List<Produto> getProdutoLista() {
+		return produtoLista;
+	}
+
+	public void setProdutoLista(List<Produto> produtoLista) {
+		this.produtoLista = produtoLista;
+	}
+
 	// Métodos
 	public void cadastrar(Produto p) {
 		this.produtoLista.add(p);
-
 	}
 
 	public void pesquisar() {
-
 
 	}
 
@@ -54,14 +60,20 @@ public class Produto {
 
 	}
 
-	public void escluir() {
+	public void excluir(Produto p) {
+
+		this.produtoLista.remove(p);
 
 	}
 
 	public void listar() {
-		for (Produto produtos : produtoLista) {
-			System.out.println(produtos);
-		}
-
+//		for (Produto produtos : produtoLista) {
+			System.out.println(produtoLista);
+//		}
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Produto: " + getDescricao() + "\n Quantidade: " + getQuantidade();
+//	}
 }

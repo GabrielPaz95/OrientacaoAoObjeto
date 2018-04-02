@@ -6,12 +6,11 @@ public class Menu {
 
 	public static void main(String[] args) {
 
-		Produto p = new Produto();
-
 		Scanner scan = new Scanner(System.in);
 		int opcao = 0;
 
-		while (opcao == 0) {
+		do {
+			Produto p = new Produto();
 			System.out.println("*********** Menu Opções *************");
 			System.out.println("** 1 - Cadastro de Produtos        **");
 			System.out.println("** 2 - Entradas de Estoque         **");
@@ -29,19 +28,20 @@ public class Menu {
 				opcao = scan.nextInt();
 
 				switch (opcao) {
-				case 1: {
+				case 1:
+
 					System.out.println("Digite a quantidade: ");
 					p.setQuantidade(scan.nextInt());
 					System.out.println("Digite o nome do Produto: ");
-					p.setDescricao(scan.nextLine());				
+					p.setDescricao(scan.next());
 
-					
 					p.qtsProdutos++;
-					
+
 					p.cadastrar(p);
 
+					System.out.println("Produto cadastrado!");
+
 					break;
-				}
 
 				case 2:
 					System.out.println("opcao 2");
@@ -62,7 +62,7 @@ public class Menu {
 					p.listar();
 					break;
 				case 8:
-					System.out.println("opcao 8");
+					p.excluir(p);
 					break;
 				case 0:
 					System.out.println("Você saiu!");
@@ -71,8 +71,7 @@ public class Menu {
 					System.out.println("Opção inválida!");
 				}
 			} while (opcao >= 9);
-		}
-		;
+		} while (opcao != 0);
 	}
 
 }
