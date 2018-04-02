@@ -13,7 +13,7 @@ public class Menu {
 
 		while (opcao == 0) {
 			System.out.println("*********** Menu Opções *************");
-			System.out.println("** 1 - Cadastro de Produto        **");
+			System.out.println("** 1 - Cadastro de Produtos        **");
 			System.out.println("** 2 - Entradas de Estoque         **");
 			System.out.println("** 3 - Saídas de Estoque           **");
 			System.out.println("** 4 - Saldos de Estoque           **");
