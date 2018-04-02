@@ -44,7 +44,7 @@ public class Menu {
 				}
 
 				case 2:
-					System.out.println("opcao 2");
+					System.out.println("opcao ");
 					break;
 				case 3:
 					System.out.println("opcao 3");
