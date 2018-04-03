@@ -20,7 +20,6 @@ public class Menu {
 			System.out.println("** 6 - Devoluções de Estoque       **");
 			System.out.println("** 7 - Consulta de Produtos Ativos **");
 			System.out.println("** 8 - Exclusão de Produtos        **");
-			System.out.println("** 9 - Listar Quantidade de Produto**");
 			System.out.println("** 0 - Sair                        **");
 			System.out.println("*************************************");
 
@@ -43,7 +42,7 @@ public class Menu {
 					break;
 
 				case 2:
-					System.out.println("opcao 2");
+					p.listarQuantidade();
 					break;
 				case 3:
 					System.out.println("opcao 3");
@@ -62,9 +61,6 @@ public class Menu {
 					break;
 				case 8:
 					p.excluir(p);
-					break;
-				case 9:
-					p.listarQuantidade();
 					break;
 				case 0:
 					System.out.println("Você saiu!");
