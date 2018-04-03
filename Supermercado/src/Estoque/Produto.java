@@ -11,8 +11,16 @@ public class Produto {
 	private static int codigo;
 	public int quantidade;
 	public String descricao;
-	public static int qtsProdutos;
 	private List<Produto> produtoLista = new ArrayList<>();
+
+	public Produto() {
+
+	}
+
+	public Produto(int quantidade, String descricao) {
+		this.quantidade = quantidade;
+		this.descricao = descricao;
+	}
 
 	// Getters and Setters
 	public static int getCodigo() {
@@ -67,13 +75,13 @@ public class Produto {
 	}
 
 	public void listar() {
-//		for (Produto produtos : produtoLista) {
-			System.out.println(produtoLista);
-//		}
+		for (Produto produtos : produtoLista) {
+			System.out.println(produtos);
+		}
+	}
+	
+	public void listarQuantidade() {
+		System.out.println("Quantidade de produtos cadastrados " + this.produtoLista.size());
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Produto: " + getDescricao() + "\n Quantidade: " + getQuantidade();
-//	}
 }
