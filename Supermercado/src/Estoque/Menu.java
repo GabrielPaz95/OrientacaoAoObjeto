@@ -35,9 +35,12 @@ public class Menu {
 					System.out.println("Digite o nome do Produto: ");
 					p.setDescricao(scan.next());
 
-					p.cadastrar(new Produto());
+					p.cadastrar(p);
 
 					System.out.println("Produto cadastrado!");
+										
+					System.out.println(p.getDescricao());
+					System.out.println(p.getQuantidade());
 
 					break;
 
