@@ -45,7 +45,7 @@ public class Menu {
 					p.entradasEstoque();
 					break;
 				case 3:
-					System.out.println("opcao 3");
+					p.saidasEstoque();
 					break;
 				case 4:
 					System.out.println("opcao 4");
@@ -57,7 +57,10 @@ public class Menu {
 					System.out.println("opcao 6");
 					break;
 				case 7:
-					p.consultaProdutosAtivos();
+					
+						System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
+						String descricao = scan.next();
+						p.consultaProdutosAtivos(descricao);
 					break;
 				case 8:
 					p.excluir(p);

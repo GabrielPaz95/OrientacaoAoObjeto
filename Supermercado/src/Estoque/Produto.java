@@ -26,6 +26,11 @@ public class Produto {
 	public void setDescricao(String descricao) {this.descricao = descricao;}
 
 	// Métodos
+	@Override
+	public String toString() {
+		return "Produto [quantidade=" + quantidade + ", descricao=" + descricao + "]";
+	}
+	
 	//1
 	public void cadastrar(Produto p) {
 		this.produtoLista.add(p);
@@ -34,8 +39,10 @@ public class Produto {
 	
 	//2
 	public void entradasEstoque() {
-		System.out.println();
-		System.out.println("Quantidade de produtos cadastrados: " + this.quantidadeDeProdutos);
+		System.out.println("Quantidade de produtos cadastrados: " + this.quantidadeDeProdutos);		
+		for (Produto produtos : produtoLista) {
+			System.out.println(produtos);
+		}
 	}
 	
 	//3
@@ -58,18 +65,19 @@ public class Produto {
 
 	}
 	
-	//7
-	@Override
-	public String toString() {
-		return "Produto [quantidade=" + quantidade + ", descricao=" + descricao + "]";
-	}
-
-	public void consultaProdutosAtivos() {
+	//7 --- não está comparando
+	public void consultaProdutosAtivos(String descricao) {		
 		for (Produto produtos : produtoLista) {
-			System.out.println(produtos);
+			if(produtos.produtoLista.contains(descricao)) {				
+				System.out.println("existe");
+			}
+			else
+				System.out.println("não existe");
+				break;		
 		}
 	}
 
+	//8
 	public void excluir(Produto p) {
 
 		this.produtoLista.remove(p);
