@@ -65,22 +65,38 @@ public class Produto {
 
 	}
 	
-	//7 --- não está comparando
+	//7
 	public void consultaProdutosAtivos(String descricao) {		
-		for (Produto produtos : produtoLista) {
-			if(produtos.produtoLista.contains(descricao)) {				
-				System.out.println("existe");
+		boolean achou = true;
+		for (Produto produto : produtoLista) {
+			if (produto.descricao.equals(descricao)) {
+				System.out.println(produto);
+				achou = true;
+				break;
 			}
-			else
-				System.out.println("não existe");
-				break;		
 		}
+		if(achou == false) {
+			System.out.println("NÃO EXISTE! ");
+		}
+		
 	}
 
 	//8
-	public void excluir(Produto p) {
+	public void excluir(String exclusao) {
+		
+		for (Produto produto : produtoLista) {
+			if (produto.descricao.equals(exclusao)) {
+				System.out.println(produto);
+				this.produtoLista.remove(produto);
+				break;
+			}
+			else {
+				System.out.println("não");
+				break;
+			}
+		}
 
-		this.produtoLista.remove(p);
+		this.produtoLista.remove(exclusao);
 		quantidadeDeProdutos--;
 		saidasDeProdutos++;
 		

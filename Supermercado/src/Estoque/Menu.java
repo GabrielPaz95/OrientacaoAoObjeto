@@ -28,42 +28,42 @@ public class Menu {
 				opcao = scan.nextInt();
 
 				switch (opcao) {
-				case 1:
-
+				case 1:					
 					System.out.println("Digite a quantidade: ");
 					p.setQuantidade(scan.nextInt());
 					System.out.println("Digite o nome do Produto: ");
 					p.setDescricao(scan.next());
-
+					
 					p.cadastrar(p);
 
 					System.out.println("Produto cadastrado!");
 
 					break;
-
-				case 2:
+				case 2:					
 					p.entradasEstoque();
-					break;
+					break;					
 				case 3:
 					p.saidasEstoque();
 					break;
 				case 4:
-					System.out.println("opcao 4");
+					p.saldoEstoque();
 					break;
 				case 5:
-					System.out.println("opcao 5");
+					p.requisicaoEstoque();
 					break;
 				case 6:
-					System.out.println("opcao 6");
+					p.devolver();
 					break;
-				case 7:
-					
-						System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
-						String descricao = scan.next();
-						p.consultaProdutosAtivos(descricao);
+				case 7:					
+					System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
+					String descricao = scan.next();
+					p.consultaProdutosAtivos(descricao);
 					break;
+						
 				case 8:
-					p.excluir(p);
+					System.out.println("Digite o nome do produto a ser excluido no estoque: ");
+					String exclusao = scan.next();
+					p.excluir(exclusao);
 					break;
 				case 0:
 					System.out.println("Você saiu!");
