@@ -38,14 +38,11 @@ public class Menu {
 					p.cadastrar(p);
 
 					System.out.println("Produto cadastrado!");
-										
-					System.out.println(p.getDescricao());
-					System.out.println(p.getQuantidade());
 
 					break;
 
 				case 2:
-					p.listarQuantidade();
+					p.entradasEstoque();
 					break;
 				case 3:
 					System.out.println("opcao 3");
@@ -60,7 +57,7 @@ public class Menu {
 					System.out.println("opcao 6");
 					break;
 				case 7:
-					p.listar();
+					p.consultaProdutosAtivos();
 					break;
 				case 8:
 					p.excluir(p);

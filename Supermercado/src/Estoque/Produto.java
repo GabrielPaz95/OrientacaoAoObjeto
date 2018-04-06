@@ -11,77 +11,70 @@ public class Produto {
 	private static int codigo;
 	public int quantidade;
 	public String descricao;
-	private List<Produto> produtoLista = new ArrayList<>();
-
-	public Produto() {
-
-	}
-
-	public Produto(int quantidade, String descricao) {
-		this.quantidade = quantidade;
-		this.descricao = descricao;
-	}
-
+	private static List<Produto> produtoLista = new ArrayList<>();
+	private static int quantidadeDeProdutos;
+	private static int saidasDeProdutos;
+	
 	// Getters and Setters
-	public static int getCodigo() {
-		return codigo;
-	}
-
-	public double getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Produto> getProdutoLista() {
-		return produtoLista;
-	}
-
-	public void setProdutoLista(List<Produto> produtoLista) {
-		this.produtoLista = produtoLista;
-	}
+	public static int getCodigo() {return codigo;}	
+	public static void setCodigo(int codigo) {Produto.codigo = codigo;}
+	
+	public double getQuantidade() {return quantidade;}
+	public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
+	
+	public String getDescricao() {return descricao;}
+	public void setDescricao(String descricao) {this.descricao = descricao;}
 
 	// Métodos
+	//1
 	public void cadastrar(Produto p) {
 		this.produtoLista.add(p);
+		quantidadeDeProdutos++;
 	}
-
-	public void pesquisar() {
-
+	
+	//2
+	public void entradasEstoque() {
+		System.out.println();
+		System.out.println("Quantidade de produtos cadastrados: " + this.quantidadeDeProdutos);
 	}
-
-	public void requisitar() {
-
+	
+	//3
+	public void saidasEstoque() {
+		System.out.println("Quantidade de saidas de estoque: " + this.saidasDeProdutos);
 	}
-
+	
+	//4
+	public void saldoEstoque() {
+		
+	}
+	
+	//5
+	public void requisicaoEstoque() {
+		
+	}
+	
+	//6
 	public void devolver() {
 
+	}
+	
+	//7
+	@Override
+	public String toString() {
+		return "Produto [quantidade=" + quantidade + ", descricao=" + descricao + "]";
+	}
+
+	public void consultaProdutosAtivos() {
+		for (Produto produtos : produtoLista) {
+			System.out.println(produtos);
+		}
 	}
 
 	public void excluir(Produto p) {
 
 		this.produtoLista.remove(p);
-
+		quantidadeDeProdutos--;
+		saidasDeProdutos++;
+		
 	}
-
-	public void listar() {
-		for (Produto produtos : produtoLista) {
-			System.out.println(produtos);
-		}
-	}
-	
-	public void listarQuantidade() {
-		System.out.println("Quantidade de produtos cadastrados " + this.produtoLista.size());
-	}
-
 }
