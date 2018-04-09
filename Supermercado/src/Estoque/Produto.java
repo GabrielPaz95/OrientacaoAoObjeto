@@ -11,7 +11,10 @@ public class Produto {
 	private static int codigo;
 	public int quantidade;
 	public String descricao;
+	boolean requisitado = false;
 	private static List<Produto> produtoLista = new ArrayList<>();
+	private static List<Produto> produtoSaida = new ArrayList<>();
+	private static List<Produto> produtoEntrada = new ArrayList<>();
 	private static int quantidadeDeProdutos;
 	private static int saidasDeProdutos;
 	
@@ -25,22 +28,26 @@ public class Produto {
 	public String getDescricao() {return descricao;}
 	public void setDescricao(String descricao) {this.descricao = descricao;}
 
+	public boolean isRequisitado() {return requisitado;}
+	public void setRequisitado(boolean requisitado) {this.requisitado = requisitado;}
+	
 	// Métodos
 	@Override
 	public String toString() {
-		return "Produto [quantidade=" + quantidade + ", descricao=" + descricao + "]";
+		return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + " Requisitado: " + requisitado + "]";
 	}
 	
 	//1
 	public void cadastrar(Produto p) {
 		this.produtoLista.add(p);
+		this.produtoEntrada.add(p);
 		quantidadeDeProdutos++;
 	}
 	
 	//2
 	public void entradasEstoque() {
 		System.out.println("Quantidade de produtos cadastrados: " + this.quantidadeDeProdutos);		
-		for (Produto produtos : produtoLista) {
+		for (Produto produtos : produtoEntrada) {
 			System.out.println(produtos);
 		}
 	}
@@ -48,20 +55,47 @@ public class Produto {
 	//3
 	public void saidasEstoque() {
 		System.out.println("Quantidade de saidas de estoque: " + this.saidasDeProdutos);
+		for (Produto saidas : produtoSaida) {
+			System.out.println(saidas);
+		}
 	}
 	
 	//4
 	public void saldoEstoque() {
+
 		
 	}
 	
 	//5
-	public void requisicaoEstoque() {
-		
+	public void requisicaoEstoque(String descricao, int qtd) {
+		boolean r = false;
+		for(Produto produto : produtoEntrada) {
+			if(produto.descricao.equals(descricao)) {
+				produto.setRequisitado(true);				
+				System.out.println("Produto requisitado");
+				r = true;
+				break;
+			}
+		}
+		if(r == false)
+		System.out.println("Não existe produto com esse nome");
 	}
+	
 	
 	//6
 	public void devolver() {
+		System.out.println("escolha um produto requisitado para devolver: ");
+		for (Produto produto : produtoLista) {
+		 if(produto.isRequisitado() == true){
+//			 System.out.println(produto);	
+			 produtoSaida.add(produto);
+		 }
+		 System.out.println(produtoLista + "\n");
+		}
+		
+
+		
+	 
 
 	}
 	
@@ -88,6 +122,7 @@ public class Produto {
 			if (produto.descricao.equals(exclusao)) {
 				System.out.println(produto);
 				this.produtoLista.remove(produto);
+				System.out.println("Produto excluido!");
 				break;
 			}
 			else {

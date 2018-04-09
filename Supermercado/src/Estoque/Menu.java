@@ -28,7 +28,8 @@ public class Menu {
 				opcao = scan.nextInt();
 
 				switch (opcao) {
-				case 1:					
+				case 1:			
+					System.out.println("1 - Cadastro de Produtos\n");
 					System.out.println("Digite a quantidade: ");
 					p.setQuantidade(scan.nextInt());
 					System.out.println("Digite o nome do Produto: ");
@@ -39,34 +40,45 @@ public class Menu {
 					System.out.println("Produto cadastrado!");
 
 					break;
-				case 2:					
+				case 2:		
+					System.out.println("2 - Entradas de Estoque\n");
 					p.entradasEstoque();
 					break;					
 				case 3:
+					System.out.println("3 - Saídas de Estoque");
 					p.saidasEstoque();
 					break;
 				case 4:
+					System.out.println("4 - Saldos de Estoque");
 					p.saldoEstoque();
 					break;
 				case 5:
-					p.requisicaoEstoque();
+					System.out.println("5 - Requisições de Estoque \n");
+					System.out.println("Produto: ");
+					String requisitar = scan.next();
+					System.out.println("Quantidade: ");
+					int qtd = scan.nextInt();
+					p.requisicaoEstoque(requisitar, qtd);
 					break;
 				case 6:
+					System.out.println("6 - Devoluções de Estoque \n");
 					p.devolver();
 					break;
-				case 7:					
+				case 7:	
+					System.out.println(" 7 - Consulta de Produtos Ativos \n");
 					System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
-					String descricao = scan.next();
-					p.consultaProdutosAtivos(descricao);
+					String consulta = scan.next();
+					p.consultaProdutosAtivos(consulta);
 					break;
 						
 				case 8:
+					System.out.println("8 - Exclusão de Produtos \n");
 					System.out.println("Digite o nome do produto a ser excluido no estoque: ");
 					String exclusao = scan.next();
 					p.excluir(exclusao);
 					break;
 				case 0:
-					System.out.println("Você saiu!");
+					System.out.println("Você saiu..");
 					System.exit(0);
 				default:
 					System.out.println("Opção inválida!");
