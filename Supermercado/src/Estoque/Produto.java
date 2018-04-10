@@ -12,7 +12,7 @@ public class Produto {
 	public int quantidade;
 	public String descricao;
 	boolean requisitado = false;
-	private static List<Produto> produtoLista = new ArrayList<>();
+	private static List<Produto> produtoSaldo = new ArrayList<>();
 	private static List<Produto> produtoSaida = new ArrayList<>();
 	private static List<Produto> produtoEntrada = new ArrayList<>();
 	private static int quantidadeDeProdutos;
@@ -34,17 +34,17 @@ public class Produto {
 	// Métodos
 	@Override
 	public String toString() {
-		return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + " Requisitado: " + requisitado + "]";
+		return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + "]";
 	}
 	
-	//1
+	//1 - OK
 	public void cadastrar(Produto p) {
-		this.produtoLista.add(p);
+		this.produtoSaldo.add(p);
 		this.produtoEntrada.add(p);
 		quantidadeDeProdutos++;
 	}
 	
-	//2
+	//2 - TODAS AS ENTRADAS REGRISTRADAS - OK
 	public void entradasEstoque() {
 		System.out.println("Quantidade de produtos cadastrados: " + this.quantidadeDeProdutos);		
 		for (Produto produtos : produtoEntrada) {
@@ -52,7 +52,7 @@ public class Produto {
 		}
 	}
 	
-	//3
+	//3 - TODAS AS SAIDAS REGRISTRADAS - OK
 	public void saidasEstoque() {
 		System.out.println("Quantidade de saidas de estoque: " + this.saidasDeProdutos);
 		for (Produto saidas : produtoSaida) {
@@ -60,49 +60,56 @@ public class Produto {
 		}
 	}
 	
-	//4
+	//4 - SALDO ATUAL
 	public void saldoEstoque() {
 
 		
 	}
 	
-	//5
+	//5 - RETIRADAS DE PRODUTOS
 	public void requisicaoEstoque(String descricao, int qtd) {
 		boolean r = false;
-		for(Produto produto : produtoEntrada) {
+		for(Produto produto : produtoSaldo) {
 			if(produto.descricao.equals(descricao)) {
-				produto.setRequisitado(true);				
-				System.out.println("Produto requisitado");
-				r = true;
+				if(produto.quantidade > 0 && produto.quantidade >= qtd) {
+					produto.setRequisitado(true);
+				
+					Produto pAuxiliar = new Produto();
+					pAuxiliar.setDescricao(produto.getDescricao());
+					pAuxiliar.setQuantidade(qtd);
+					produtoSaida.add(pAuxiliar);
+					
+					System.out.println("Produto requisitado");
+					saidasDeProdutos++;
+					r = true;
+					break;
+				}
+				System.out.println("Produto Existe, mas não temos em estoque!");
 				break;
 			}
+			
+			else {
+				System.out.println("Não existe produto com esse nome");
+				}
 		}
-		if(r == false)
-		System.out.println("Não existe produto com esse nome");
+		
+		
 	}
 	
 	
-	//6
+	//6 - DEVOLUÇÃO DE PRODUTOS
 	public void devolver() {
 		System.out.println("escolha um produto requisitado para devolver: ");
-		for (Produto produto : produtoLista) {
-		 if(produto.isRequisitado() == true){
-//			 System.out.println(produto);	
-			 produtoSaida.add(produto);
+		for (Produto produto : produtoSaida) {
+		 System.out.println(produto);
 		 }
-		 System.out.println(produtoLista + "\n");
+//		 System.out.println(produtoSaida + "\n");
 		}
-		
-
-		
-	 
-
-	}
 	
-	//7
+	//7 - CONSULTA ESTOQUE - OK
 	public void consultaProdutosAtivos(String descricao) {		
 		boolean achou = true;
-		for (Produto produto : produtoLista) {
+		for (Produto produto : produtoSaldo) {
 			if (produto.descricao.equals(descricao)) {
 				System.out.println(produto);
 				achou = true;
@@ -115,25 +122,24 @@ public class Produto {
 		
 	}
 
-	//8
+	//8 - EXCLUIR PRODUTO - OK
 	public void excluir(String exclusao) {
 		
-		for (Produto produto : produtoLista) {
+		for (Produto produto : produtoSaldo) {
 			if (produto.descricao.equals(exclusao)) {
 				System.out.println(produto);
-				this.produtoLista.remove(produto);
-				System.out.println("Produto excluido!");
+				this.produtoSaldo.remove(produto);
+				this.produtoEntrada.remove(produto);
+				this.produtoSaida.remove(produto);
+				quantidadeDeProdutos--;
+				saidasDeProdutos++;
+				System.out.println("Produto excluido totalmente do sistema!");
 				break;
 			}
 			else {
-				System.out.println("não");
+				System.out.println("não existe esse produto");
 				break;
 			}
-		}
-
-		this.produtoLista.remove(exclusao);
-		quantidadeDeProdutos--;
-		saidasDeProdutos++;
-		
+		}		
 	}
 }
