@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 public class Menu {
 
+	private static Scanner scan;
+
 	public static void main(String[] args) {
 
-		Scanner scan = new Scanner(System.in);
+		scan = new Scanner(System.in);
 		int opcao = 0;
 
 		do {
@@ -36,9 +38,6 @@ public class Menu {
 					p.setDescricao(scan.next());
 					
 					p.cadastrar(p);
-
-					System.out.println("Produto cadastrado!");
-
 					break;
 				case 2:		
 					System.out.println("2 - Entradas de Estoque\n");
@@ -65,7 +64,7 @@ public class Menu {
 					p.devolver();
 					break;
 				case 7:	
-					System.out.println(" 7 - Consulta de Produtos Ativos \n");
+					System.out.println("7 - Consulta de Produtos Ativos \n");
 					System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
 					String consulta = scan.next();
 					p.consultaProdutosAtivos(consulta);
