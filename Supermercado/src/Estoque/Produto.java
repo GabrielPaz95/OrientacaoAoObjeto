@@ -26,6 +26,8 @@ public class Produto {
 	private static List<Produto> produtoEntrada = new ArrayList<>();
 	private static int quantidadeInstancias;
 	private static int saidasDeProdutos;
+	private boolean devolucao = false;
+	static int d = 0;
 
 	// Getters and Setters -------------------------------------------------------------------------------------
 	public int getCodigo() {return codigo;}
@@ -36,7 +38,13 @@ public class Produto {
 
 	public String getDescricao() {return descricao;}
 	public void setDescricao(String descricao) {this.descricao = descricao;}
-
+	
+	public static List<Produto> getProdutoSaida() {return produtoSaida;}
+	public static void setProdutoSaida(List<Produto> produtoSaida) {Produto.produtoSaida = produtoSaida;}
+	
+	public boolean isDevolucao() {return devolucao;}
+	public void setDevolucao(boolean devolucao) {this.devolucao = devolucao;
+	}
 	// Métodos --------------------------------------------------------------------------------------------------
 	@Override
 	public String toString() {return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + "]";}
@@ -52,7 +60,7 @@ public class Produto {
 			pS.quantidade = p.quantidade;
 			produtoSaldo.add(pS);
 			
-			System.out.println("Primeiro Produto Cadastrado!");
+			System.out.println("Primeiro Produto Cadastrado!\n");
 			quantidadeInstancias++;
 		}
 		
@@ -65,7 +73,7 @@ public class Produto {
 					
 					produtoEntrada.add(p);
 					
-					System.out.println("Produto já existe, foi Atualizado!");
+					System.out.println("Produto já existe, foi Atualizado!\n");
 					quantidadeInstancias++;
 					break;
 				}
@@ -88,14 +96,14 @@ public class Produto {
 							pS.descricao = p.descricao;
 							pS.quantidade = p.quantidade;
 							produtoSaldo.add(pS);
-							System.out.println("Produto Cadastrado!");
+							System.out.println("Produto Cadastrado!\n");
 							quantidadeInstancias++;
 							break;
 						}
 					}
 					}
 				}
-	}//cadastrar
+	}
 
 	// 2 - TODAS AS ENTRADAS REGRISTRADAS - OK
 	public void entradasEstoque() {
@@ -110,7 +118,7 @@ public class Produto {
 	public void saidasEstoque() {
 		System.out.println("Quantidade de saidas de estoque: " + saidasDeProdutos);
 		for (Produto pSaidas : produtoSaida) {
-			System.out.println(pSaidas);
+			System.out.println(pSaidas + " - Devolvido: " + pSaidas.devolucao);
 		}
 		System.out.println("\n\n");
 	}
@@ -119,11 +127,11 @@ public class Produto {
 	public void saldoEstoque() {
 		System.out.println("Saldo Estoque: ");
 		for (Produto pSaldo : produtoSaldo) {
-		System.out.println(pSaldo);
+		System.out.println(pSaldo + "\n");
 		}
 	}
 
-	// 5 - RETIRADAS DE PRODUTOS - OK
+	// 5 - REQUISIÇÃO DE PRODUTOS - OK
 	public void requisicaoEstoque(String descricao, int qtd) {
 		boolean r = false;
 		for (Produto produto : produtoSaldo) {
@@ -139,28 +147,42 @@ public class Produto {
 					
 					
 					System.out.println(pSaida);
-					System.out.println("Produto requisitado");
+					System.out.println("Produto requisitado\n");
 					saidasDeProdutos++;
 					r = true;
 					break;
 				} else {
-					System.out.println("Produto Existe, mas não temos em estoque!");
+					System.out.println("Produto Existe, mas não temos em estoque!\n");
 					break;
 				}
 			} else if (r == false){
-				System.out.println("Não existe produto com esse nome");
+				System.out.println("Não existe produto com esse nome\n");
 			}
 		}
 
 	}
 
-	// 6 - DEVOLUÇÃO DE PRODUTOS
-	public void devolver() {
-		System.out.println("escolha um produto requisitado para devolver: ");
+	// 6 - DEVOLUÇÃO DE PRODUTOS - OK
+	public void devolver(String devolucao, int qtdDevolucao) {			
 		for (Produto produto : produtoSaida) {
-			System.out.println(produto);
-		}
-		// System.out.println(produtoSaida + "\n");
+			if(produto.quantidade == qtdDevolucao && produto.descricao.equals(devolucao)
+					&& produto.devolucao == false) {
+				produto.setDevolucao(true);
+				
+				for(Produto pSaldo : produtoSaldo) {
+					if(pSaldo.descricao.equals(devolucao)) {					
+						pSaldo.descricao = devolucao;
+						pSaldo.quantidade += qtdDevolucao;
+					}
+					
+				System.out.println("Produto Devolvido\n");
+				}				
+				break;
+			}
+			else if(produto.quantidade != qtdDevolucao && produto.descricao.equals(devolucao)&& produto.devolucao == false) {
+				System.out.println("Quantidade diferente da requisitada, porfavor refaça a devolucao correta\n");break;}
+			else{System.out.println("Produto não consta na lista de requisitados!\n");break;}
+		}	
 	}
 
 	// 7 - CONSULTA ESTOQUE - OK
@@ -179,14 +201,57 @@ public class Produto {
 
 	}
 
-	// 8 - EXCLUIR PRODUTO
+	// 8 - EXCLUIR PRODUTO - OK
 	public void excluir(String exclusao) {
-		
+	if(produtoEntrada.size() > 0) {
+	int excluirEntradaContador = 0;
+	
+	do{
 		for (Produto excluirEntrada : produtoEntrada) {
 			if(excluirEntrada.descricao.equals(exclusao)) {
 				produtoEntrada.remove(excluirEntrada);
+				quantidadeInstancias--;
+				break;
 			}
 		}
+		excluirEntradaContador++;
+	}while(excluirEntradaContador <= produtoEntrada.size());
+	
+	System.out.println("Excluido ProdutoEntrada");
+	}
+	
+	if(produtoSaldo.size() > 0) {
+	int excluirSaldoContador = 0;
+	
+	do{
+		for (Produto excluirSaldo : produtoSaldo) {
+			if(excluirSaldo.descricao.equals(exclusao)) {
+				produtoSaldo.remove(excluirSaldo);
+				break;
+			}
+		}
+		excluirSaldoContador++;
+	}while(excluirSaldoContador <= produtoSaldo.size());
+	
+	System.out.println("Excluido ProdutoSaldo");
+	}
+	
+	if(produtoSaida.size() > 0) {	
+	int excluirSaidaContador = 0;
+	
+	do{
+		for (Produto excluirSaida : produtoSaida) {
+			if(excluirSaida.descricao.equals(exclusao)) {
+				produtoSaida.remove(excluirSaida);
+				saidasDeProdutos--;
+				break;
+			}
+		}
+		excluirSaidaContador++;
+	}while(excluirSaidaContador <= produtoSaida.size());
+	
+	System.out.println("Excluido ProdutoSaida");	
 		
+	}
 	}
 }

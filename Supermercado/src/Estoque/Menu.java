@@ -61,8 +61,26 @@ public class Menu {
 					break;
 				case 6:
 					System.out.println("6 - Devoluções de Estoque \n");
-					p.devolver();
+					System.out.println("Produtos Requisitados: ");
+					
+					Produto.d = 0;
+					
+					for (Produto produto : p.getProdutoSaida()) {
+						if(produto.isDevolucao() == false) {
+							System.out.println(produto + " - Devolvido: " + produto.isDevolucao());
+							produto.d++;
+						}
+					}
+					
+					if(Produto.d <= 0) {System.out.println("Não existe produtos requisitados");break;}
+					
+					System.out.println("Produto a devolver: ");
+					String devolucao = scan.next();
+					System.out.println("Quantidade: ");
+					int qtdDevolucao = scan.nextInt();
+					p.devolver(devolucao, qtdDevolucao);
 					break;
+					
 				case 7:	
 					System.out.println("7 - Consulta de Produtos Ativos \n");
 					System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
