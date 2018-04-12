@@ -30,6 +30,8 @@ public class Produto {
 	static int d = 0;
 
 	// Getters and Setters -------------------------------------------------------------------------------------
+	
+	//falta o codigo..
 	public int getCodigo() {return codigo;}
 	public void setCodigo(int codigo) {this.codigo = codigo;}
 
@@ -43,21 +45,54 @@ public class Produto {
 	public static void setProdutoSaida(List<Produto> produtoSaida) {Produto.produtoSaida = produtoSaida;}
 	
 	public boolean isDevolucao() {return devolucao;}
-	public void setDevolucao(boolean devolucao) {this.devolucao = devolucao;
-	}
+	public void setDevolucao(boolean devolucao) {this.devolucao = devolucao;}
+	
+	//apartir daqui, falta inserir no sistema
+	public double getUnidadeDeMedida() {return unidadeDeMedida;}
+	public void setUnidadeDeMedida(double unidadeDeMedida) {this.unidadeDeMedida = unidadeDeMedida;}
+	
+	public double getPreçoMedio() {return preçoMedio;}
+	public void setPreçoMedio(double preçoMedio) {this.preçoMedio = preçoMedio;}
+	
+	public double getSaldoMinimo() {return saldoMinimo;}
+	public void setSaldoMinimo(double saldoMinimo) {this.saldoMinimo = saldoMinimo;}
+	
+	public double getSaldoMaximo() {return saldoMaximo;}
+	public void setSaldoMaximo(double saldoMaximo) {this.saldoMaximo = saldoMaximo;}
+	
+	public double getLoteEconomicoDeCompra() {return loteEconomicoDeCompra;}
+	public void setLoteEconomicoDeCompra(double loteEconomicoDeCompra) {this.loteEconomicoDeCompra = loteEconomicoDeCompra;}
+	
+	public int getLocalNaPrateleira() {return localNaPrateleira;}
+	public void setLocalNaPrateleira(int localNaPrateleira) {this.localNaPrateleira = localNaPrateleira;}
+	
+	public Date getDataDaPrimeiraCompra() {return dataDaPrimeiraCompra;}
+	public void setDataDaPrimeiraCompra(Date dataDaPrimeiraCompra) {this.dataDaPrimeiraCompra = dataDaPrimeiraCompra;}
+	
+	public Date getDataDaUltimaCompra() {return dataDaUltimaCompra;}
+	public void setDataDaUltimaCompra(Date dataDaUltimaCompra) {this.dataDaUltimaCompra = dataDaUltimaCompra;}
+	
+	public String getObservacao() {return observacao;}
+	public void setObservacao(String observacao) {this.observacao = observacao;}
+
 	// Métodos --------------------------------------------------------------------------------------------------
 	@Override
-	public String toString() {return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + "]";}
+	public String toString() {return "Produto [descricao: " + descricao + " - Quantidade: " + quantidade + " ";}
 
 	// 1 - CADASTRAR OK
 	public void cadastrar(Produto p) {			
 		//se a lista estiver vazia
 		if(produtoEntrada.isEmpty() && produtoSaldo.isEmpty()){
-			produtoEntrada.add(p);
+			Produto pE = new Produto();
+			pE.descricao = p.descricao;
+			pE.quantidade = p.quantidade;
+			pE.dataDaPrimeiraCompra = new Date();
+			produtoEntrada.add(pE);
 			
 			Produto pS = new Produto();
 			pS.descricao = p.descricao;
 			pS.quantidade = p.quantidade;
+			pE.setDataDaPrimeiraCompra(new Date()); //ARRUMAR
 			produtoSaldo.add(pS);
 			
 			System.out.println("Primeiro Produto Cadastrado!\n");
@@ -105,11 +140,11 @@ public class Produto {
 				}
 	}
 
-	// 2 - TODAS AS ENTRADAS REGRISTRADAS - OK
+	// 2 - TODAS AS ENTRADAS REGISTRADAS - OK
 	public void entradasEstoque() {
 		System.out.println("Quantidade de produtos cadastrados: " + quantidadeInstancias);
 		for (Produto pEntrada : produtoEntrada) {
-			System.out.println(pEntrada);
+			System.out.println(pEntrada + "PrimeiraCompra: " + dataDaPrimeiraCompra);
 		}
 		System.out.println("\n\n");
 	}
@@ -127,7 +162,7 @@ public class Produto {
 	public void saldoEstoque() {
 		System.out.println("Saldo Estoque: ");
 		for (Produto pSaldo : produtoSaldo) {
-		System.out.println(pSaldo + "\n");
+		System.out.println(pSaldo + "- PrimeiraCompra: " + dataDaPrimeiraCompra + "\n");
 		}
 	}
 
