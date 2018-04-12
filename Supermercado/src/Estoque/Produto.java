@@ -41,47 +41,61 @@ public class Produto {
 	@Override
 	public String toString() {return "Produto [descricao: " + descricao + " Quantidade: " + quantidade + "]";}
 
-	// 1 - OK
-	public void cadastrar(Produto p) {		
-		
+	// 1 - CADASTRAR OK
+	public void cadastrar(Produto p) {			
 		//se a lista estiver vazia
-		if(produtoEntrada.isEmpty() && produtoSaldo.isEmpty()) {
+		if(produtoEntrada.isEmpty() && produtoSaldo.isEmpty()){
 			produtoEntrada.add(p);
-			produtoSaldo.add(p);
+			
+			Produto pS = new Produto();
+			pS.descricao = p.descricao;
+			pS.quantidade = p.quantidade;
+			produtoSaldo.add(pS);
+			
 			System.out.println("Primeiro Produto Cadastrado!");
 			quantidadeInstancias++;
 		}
-		else {
-			//Produto Novo
-			for (Produto pEntrada : produtoEntrada) {
-				if(!pEntrada.descricao.equals(p.descricao)) {
-					produtoEntrada.add(p);
-					produtoSaldo.add(p);
-					System.out.println("Primeiro Produto Cadastrado!");
-					quantidadeInstancias++;
-					break;
-				}
-			}
+		
+		else {			
 			//Atualiza Saldo
 			for(Produto pSaldo : produtoSaldo) {
-				if(pSaldo.descricao.equals(p.descricao)) {
-					Produto pAtualizaSaldo = new Produto();
-					pAtualizaSaldo.setDescricao(p.descricao);
-					int qtd = (int) (pAtualizaSaldo.getQuantidade() + p.quantidade);
-					pAtualizaSaldo.setQuantidade(qtd);
-					produtoSaldo.add(pAtualizaSaldo);
+				if(pSaldo.descricao.equals(p.descricao)) {					
+					pSaldo.descricao = p.descricao;
+					pSaldo.quantidade += p.quantidade;
 					
 					produtoEntrada.add(p);
+					
 					System.out.println("Produto já existe, foi Atualizado!");
 					quantidadeInstancias++;
 					break;
 				}
 			}
-			
+					//Produto Novo
+					boolean t = false;
 				
-				
-			}
-		}//cadastrar
+					for (Produto pEntrada : produtoEntrada) {						
+						if(pEntrada.descricao.equals(p.descricao)) {
+							t = true;														
+						}
+					}
+						
+					if(t == false) {
+					for (Produto pEntrada : produtoEntrada) {	
+						if(!pEntrada.descricao.equals(p.descricao)) {
+							produtoEntrada.add(p);
+							
+							Produto pS = new Produto();
+							pS.descricao = p.descricao;
+							pS.quantidade = p.quantidade;
+							produtoSaldo.add(pS);
+							System.out.println("Produto Cadastrado!");
+							quantidadeInstancias++;
+							break;
+						}
+					}
+					}
+				}
+	}//cadastrar
 
 	// 2 - TODAS AS ENTRADAS REGRISTRADAS - OK
 	public void entradasEstoque() {
@@ -101,7 +115,7 @@ public class Produto {
 		System.out.println("\n\n");
 	}
 
-	// 4 - SALDO ATUAL
+	// 4 - SALDO ATUAL - OK
 	public void saldoEstoque() {
 		System.out.println("Saldo Estoque: ");
 		for (Produto pSaldo : produtoSaldo) {
@@ -109,7 +123,7 @@ public class Produto {
 		}
 	}
 
-	// 5 - RETIRADAS DE PRODUTOS
+	// 5 - RETIRADAS DE PRODUTOS - OK
 	public void requisicaoEstoque(String descricao, int qtd) {
 		boolean r = false;
 		for (Produto produto : produtoSaldo) {
@@ -123,7 +137,8 @@ public class Produto {
 					
 					produto.quantidade -= qtd;
 					
-					System.out.println(produtoSaldo);
+					
+					System.out.println(pSaida);
 					System.out.println("Produto requisitado");
 					saidasDeProdutos++;
 					r = true;
@@ -164,23 +179,14 @@ public class Produto {
 
 	}
 
-	// 8 - EXCLUIR PRODUTO - OK
+	// 8 - EXCLUIR PRODUTO
 	public void excluir(String exclusao) {
-
-		for (Produto produto : produtoSaldo) {
-			if (produto.descricao.equals(exclusao)) {
-				System.out.println(produto);
-				produtoSaldo.remove(produto);
-				produtoEntrada.remove(produto);
-				produtoSaida.remove(produto);
-				quantidadeInstancias--;
-				saidasDeProdutos++;
-				System.out.println("Produto excluido totalmente do sistema!");
-				break;
-			} else {
-				System.out.println("não existe esse produto");
-				break;
+		
+		for (Produto excluirEntrada : produtoEntrada) {
+			if(excluirEntrada.descricao.equals(exclusao)) {
+				produtoEntrada.remove(excluirEntrada);
 			}
 		}
+		
 	}
 }
