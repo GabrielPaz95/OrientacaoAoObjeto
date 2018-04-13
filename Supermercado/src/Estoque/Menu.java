@@ -1,5 +1,6 @@
 package Estoque;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class Menu {
@@ -12,7 +13,11 @@ public class Menu {
 		int opcao = 0;
 
 		do {
-			Produto p = new Produto();
+			Produto pNovo = new Produto();
+			EntradaDeMateriais eM = new EntradaDeMateriais();
+			ControleDeEstoque cE = new ControleDeEstoque();
+			ControleDeVenda cV = new ControleDeVenda();
+			
 			System.out.println("*********** Menu Opções *************");
 			System.out.println("** 1 - Cadastro de Produtos        **");
 			System.out.println("** 2 - Entradas de Estoque         **");
@@ -33,23 +38,28 @@ public class Menu {
 				case 1:			
 					System.out.println("1 - Cadastro de Produtos\n");
 					System.out.println("Digite a quantidade: ");
-					p.setQuantidade(scan.nextInt());
+					pNovo.setQuantidade(scan.nextInt());
 					System.out.println("Digite o nome do Produto: ");
-					p.setDescricao(scan.next());
+					pNovo.setDescricao(scan.next());
+					System.out.println("Digite o preço total:");
+					pNovo.setPreco(scan.nextDouble() / pNovo.getQuantidade());
 					
-					p.cadastrar(p);
+					Date data = new Date();					
+					pNovo.setDataDaPrimeiraCompra(data);//arrumar
+					
+					eM.cadastrar(pNovo);
 					break;
 				case 2:		
 					System.out.println("2 - Entradas de Estoque\n");
-					p.entradasEstoque();
+					eM.entradasEstoque();
 					break;					
 				case 3:
 					System.out.println("3 - Saídas de Estoque");
-					p.saidasEstoque();
+					cV.saidasEstoque();
 					break;
 				case 4:
 					System.out.println("4 - Saldos de Estoque");
-					p.saldoEstoque();
+					cE.saldoEstoque();
 					break;
 				case 5:
 					System.out.println("5 - Requisições de Estoque \n");
@@ -57,42 +67,42 @@ public class Menu {
 					String requisitar = scan.next();
 					System.out.println("Quantidade: ");
 					int qtd = scan.nextInt();
-					p.requisicaoEstoque(requisitar, qtd);
+					cE.requisicaoEstoque(requisitar, qtd);
 					break;
 				case 6:
 					System.out.println("6 - Devoluções de Estoque \n");
 					System.out.println("Produtos Requisitados: ");
 					
-					Produto.d = 0;
+					ControleDeEstoque.dev = 0;
 					
-					for (Produto produto : p.getProdutoSaida()) {
-						if(produto.isDevolucao() == false) {
-							System.out.println(produto + " - Devolvido: " + produto.isDevolucao());
-							produto.d++;
+					for (Produto produtoSaida : Produto.produtoSaida) {
+						if(produtoSaida.isDevolucao() == false) {
+							System.out.println(produtoSaida + " - Devolvido: " + produtoSaida.isDevolucao());
+							ControleDeEstoque.dev++;
 						}
 					}
 					
-					if(Produto.d <= 0) {System.out.println("Não existe produtos requisitados");break;}
+					if(ControleDeEstoque.dev <= 0) {System.out.println("Não existe produtos requisitados");break;}
 					
 					System.out.println("Produto a devolver: ");
 					String devolucao = scan.next();
 					System.out.println("Quantidade: ");
 					int qtdDevolucao = scan.nextInt();
-					p.devolver(devolucao, qtdDevolucao);
+					cE.devolver(devolucao, qtdDevolucao);
 					break;
 					
 				case 7:	
 					System.out.println("7 - Consulta de Produtos Ativos \n");
 					System.out.println("Digite o nome do produto a ser pesquisado no estoque: ");
 					String consulta = scan.next();
-					p.consultaProdutosAtivos(consulta);
+					cE.consultaProdutosAtivos(consulta);
 					break;
 						
 				case 8:
 					System.out.println("8 - Exclusão de Produtos \n");
 					System.out.println("Digite o nome do produto a ser excluido no estoque: ");
 					String exclusao = scan.next();
-					p.excluir(exclusao);
+					cE.excluir(exclusao);
 					break;
 				case 0:
 					System.out.println("Você saiu..");
