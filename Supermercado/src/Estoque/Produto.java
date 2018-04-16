@@ -14,6 +14,7 @@ compra, data da ultima compra, descrição e observação.*/
 	private int quantidade;
 	private String descricao;	
 	private double unidadeDeMedida;
+	private double precoTotal;
 	private double preco;
 	private double precoMedio;
 	private double saldoMinimo;
@@ -24,6 +25,9 @@ compra, data da ultima compra, descrição e observação.*/
 	private Date dataDaUltimaCompra;
 	private String observacao;
 	private boolean devolucao = false;
+	private String venda;
+	private int notaFiscalEntrada;
+	private int notaFiscalSaida;
 	
 	public static List<Produto> produtoEntrada = new ArrayList<>();
 	public static List<Produto> produtoSaldo = new ArrayList<>();
@@ -31,11 +35,10 @@ compra, data da ultima compra, descrição e observação.*/
 	
 	public static int quantidadeInstancias;
 	public static int saidasDeProdutos;
+	public static int nfSaidaContador = 1;;
 	public static int codigoGeral = 0001;
 
 	// Getters and Setters -------------------------------------------------------------------------------------
-	public boolean isDevolucao() {return devolucao;}
-	public void setDevolucao(boolean devolucao) {this.devolucao = devolucao;}
 	
 	public int getCodigo() {return codigo;}
 	public void setCodigo(int codigo) {this.codigo = codigo;}
@@ -52,6 +55,9 @@ compra, data da ultima compra, descrição e observação.*/
 	
 	public double getPreco() {return preco;}
 	public void setPreco(double preco) {this.preco = preco;}
+	
+	public double getPrecoTotal() {	return precoTotal;}
+	public void setPrecoTotal(double precoTotal) {this.precoTotal = precoTotal;}
 	
 	public double getPrecoMedio() {return precoMedio;}
 	public void setPrecoMedio(double precoMedio) {this.precoMedio = precoMedio;}
@@ -76,13 +82,28 @@ compra, data da ultima compra, descrição e observação.*/
 	
 	public String getObservacao() {return observacao;}
 	public void setObservacao(String observacao) {this.observacao = observacao;}
+	
+	public int getNotaFiscalEntrada() {return notaFiscalEntrada;}
+	public void setNotaFiscalEntrada(int notaFiscalEntrada) {this.notaFiscalEntrada = notaFiscalEntrada;}
+	
+	public int getNotaFiscalSaida() {return notaFiscalSaida;}
+	public void setNotaFiscalSaida(int notaFiscalSaida) {this.notaFiscalSaida = notaFiscalSaida;}
+	
+	public static int getNfSaidaContador() {return nfSaidaContador;}
+	public static void setNfSaidaContador(int nfSaidaContador) {Produto.nfSaidaContador = nfSaidaContador;}
 
+	public String getVenda() {return venda;}
+	public void setVenda(String venda) {this.venda = venda;}
+	
+	public boolean isDevolucao() {return devolucao;}
+	public void setDevolucao(boolean devolucao) {this.devolucao = devolucao;}
+	
 	// Métodos --------------------------------------------------------------------------------------------------
 	@Override
 	public String toString() {
 		String Produt = "Codigo: " + codigo + 
 				"\nDescricao: " + descricao + " - Quantidade: " + quantidade + 
-				"\nPreço Unitário:  " + preco + " - Preço Medio: " + precoMedio +
+				"\nPreço Unitário:  R$" + preco + " - Preço Medio: R$" + precoMedio +
 				"\nUnidade de Medida: " + unidadeDeMedida + " - Local na Prateleira: " + localNaPrateleira +
 				"\nObservação: " + observacao + " - ";
 		

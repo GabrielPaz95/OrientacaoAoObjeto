@@ -3,17 +3,32 @@ package Estoque;
 public class ControleDeEstoque {
 
 	Produto pNovo = new Produto();
-	
-	/* Controle de Estoque: permitir que sejam feitas devoluções ou requisições neste
-estoque. */
+
+	/*
+	 * Controle de Estoque: permitir que sejam feitas devoluções ou requisições
+	 * neste estoque.
+	 */
 
 	public static int dev = 0;
+
+	// 3 - TODAS AS SAIDAS REGISTRADAS - OK
+	public void saidasEstoque() {
+		System.out.println("Quantidade de Saidas de estoque: " + Produto.saidasDeProdutos);
+		for (Produto pSaidas : Produto.produtoSaida) {
+			if (pSaidas.isDevolucao() == true) {
+				System.out.println(pSaidas + "Devolução: " + pSaidas.isDevolucao());
+				System.out.println("\n------------------------------------------------");
+			}
+			System.out.println("\n\n");
+		}
+	}
 
 	// 4 - SALDO ATUAL - OK
 	public void saldoEstoque() {
 		System.out.println("Saldo Estoque: ");
 		for (Produto pSaldo : Produto.produtoSaldo) {
-			System.out.println(pSaldo + "- Ultima Compra: " + pNovo.getDataDaUltimaCompra());// arrumar
+			System.out.println(pSaldo + "- Ultima Compra: " + pSaldo.getDataDaUltimaCompra());
+			System.out.println("\n------------------------------------------------");
 		}
 	}
 
@@ -38,10 +53,10 @@ estoque. */
 					Produto.saidasDeProdutos++;
 					r = true;
 					break;
-				} else {
+				} else if (produto.getDescricao().equals(descricao) && produto.getQuantidade() != qtd) {
 					System.out.println("Produto Existe, mas não temos em estoque!\n");
+					r = true;
 					break;
-					// arrumar, esta aparecendo msg mais de uma vez
 				}
 			}
 		}
@@ -59,6 +74,7 @@ estoque. */
 			if (produtoSaida.getQuantidade() == qtdDevolucao && produtoSaida.getDescricao().equals(devolucao)
 					&& produtoSaida.isDevolucao() == false) {
 				produtoSaida.setDevolucao(true);
+				produtoSaida.setVenda("devolucao");
 
 				for (Produto pSaldo : Produto.produtoSaldo) {
 					if (pSaldo.getDescricao().equals(devolucao)) {
