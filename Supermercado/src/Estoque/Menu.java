@@ -1,63 +1,78 @@
 package Estoque;
-
 import java.util.Date;
 import java.util.Scanner;
-
 public class Menu {
-
 	private static Scanner scan;
-
 	public static void main(String[] args) {
-
 		scan = new Scanner(System.in);
 		int opcao = 0;
 		int opcaoInicio = 0;
-		
+
 		Produto pNovo = new Produto();
 		EntradaDeMateriais eM = new EntradaDeMateriais();
 		ControleDeEstoque cE = new ControleDeEstoque();
 		ControleDeVenda cV = new ControleDeVenda();
 		NotaFiscal nF = new NotaFiscal();
-		
+
 		do {
 			System.out.println("*********** Menu Opções - Principal **");
 			System.out.println("** 1 - Vendas                       **");
 			System.out.println("** 2 - Estoque                      **");
 			System.out.println("** 3 - Consulta Notas vendas        **");
-			System.out.println("** 4 - Vendas                       **");		
+			System.out.println("** 4 - Historico Vendas             **");
 			System.out.println("** 0 - Sair                         **");
 			System.out.println("**************************************");
 
 			do {
 				System.out.println("Escolha uma opção: ");
 				opcaoInicio = scan.nextInt();
-
 				switch (opcaoInicio) {
-				case 1:
-
-					for (Produto produtoSaldo : Produto.produtoSaldo) {
-							System.out.println("Codigo: " + produtoSaldo.getCodigo() + " - Descrição: " + produtoSaldo.getDescricao() + " - Qtd: " + produtoSaldo.getQuantidade()
-							+ " - Preço Unitário: R$" + produtoSaldo.getPreco());
+				case 1:					
+					Produto.nfSaidaContador++;
+					boolean vendaVazia = true;
+					boolean vendaFinalizada = false;
+					do {
+						
+					if (vendaVazia == false) {
+						System.out.println("Adicionar mais produtos na venda (1 - SIM / 2 - NÃO ): ");
+						int add = scan.nextInt();
+							
+						if (add == 2) {
+							System.out.println("Venda Finalizada, Nota Saida: " + Produto.nfSaidaContador);
+							vendaFinalizada = true;
+							break;
 						}
-					
+					}
+					//LISTA DE PRODUTO SALDO
+					for (Produto produtoSaldo : Produto.produtoSaldo) {
+						if(produtoSaldo.getQuantidade() > 0) {
+						System.out.println("Codigo: " + produtoSaldo.getCodigo() + " - Descrição: "
+								+ produtoSaldo.getDescricao() + " - Qtd: " + produtoSaldo.getQuantidade()
+								+ " - Preço Unitário: R$" + produtoSaldo.getPreco());
+						}
+					}
 					System.out.println("Digite o codigo do produto: ");
 					int codProduto = scan.nextInt();
 					System.out.println("Quantidade: ");
 					int qtdProduto = scan.nextInt();
-					
-					for(Produto pConfirma : Produto.produtoSaldo) {
-						if(pConfirma.getCodigo() == codProduto) {
-							System.out.println("Codigo: " + pConfirma.getCodigo() + " - Descrição: " + pConfirma.getDescricao() + " - Qtd: " + qtdProduto
-							+ " - Preço Unitário: R$" + pConfirma.getPreco());
+
+					for (Produto pConfirma : Produto.produtoSaldo) {
+						if (pConfirma.getCodigo() == codProduto) {
+							System.out.println(
+									"Codigo: " + pConfirma.getCodigo() + " - Descrição: " + pConfirma.getDescricao()
+											+ " - Qtd: " + qtdProduto + " - Preço Unitário: R$" + pConfirma.getPreco());
 						}
 					}
 					System.out.println("Confirma(1 - SIM || 2- NÃO): ");
 					int confirma = scan.nextInt();
-					
-					if(confirma == 1) {	cV.controleDeVenda(codProduto, qtdProduto); }
-					else System.out.println("Cancelado");				
+
+					if (confirma == 1) {
+						cV.controleDeVenda(codProduto, qtdProduto);
+						vendaVazia = false;
+					} else
+						System.out.println("Cancelado");
+					}while(vendaFinalizada == false);
 					break;
-					
 				case 2:
 					do {
 
@@ -86,10 +101,13 @@ public class Menu {
 								System.out.println("Digite o nome do Produto: ");
 								pNovo.setDescricao(scan.next());
 								System.out.println("Digite o preço total:");
-								pNovo.setPrecoTotal(scan.nextDouble());
 								pNovo.setPreco(scan.nextDouble() / pNovo.getQuantidade());
 								System.out.println("Digite o numero da Nota Fiscal: ");
 								pNovo.setNotaFiscalEntrada(scan.nextInt());
+								System.out.println("Unidade de medida: ");
+								pNovo.setUnidadeDeMedida(scan.next().toUpperCase());
+								System.out.println("Observação do produto: ");
+								pNovo.setObservacao(scan.next());
 
 								Date data = new Date();
 								pNovo.setDataDaPrimeiraCompra(data);
@@ -121,7 +139,6 @@ public class Menu {
 							case 6:
 								System.out.println("6 - Devoluções de Estoque \n");
 								System.out.println("Produtos Requisitados: ");
-
 								ControleDeEstoque.dev = 0;
 
 								for (Produto produtoSaida : Produto.produtoSaida) {
@@ -161,10 +178,10 @@ public class Menu {
 								System.out.println("Consulta Notas Entradas");
 								System.out.println("Digite o numero da notaFiscal: ");
 								int pesqNF = scan.nextInt();
-								
+
 								nF.notaFiscalEntrada(pesqNF);
-								break;	
-								
+								break;
+
 							case 10:
 								System.out.println("Menu Inicial");
 								break;
@@ -174,15 +191,13 @@ public class Menu {
 						} while (opcao >= 11);
 					} while (opcao != 10);
 					break;
-					
+
 				case 3:
 					System.out.println("Consulta Notas Vendas");
 					System.out.println("Digite o numero da notaFiscal: ");
 					int pesqNF = scan.nextInt();
-					
 					nF.notaFiscalSaida(pesqNF);
-					break;		
-					
+					break;
 				case 4:
 					cV.saidasVendas();
 					break;

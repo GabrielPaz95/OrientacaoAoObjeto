@@ -1,25 +1,18 @@
 package Estoque;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Produto {
-	
-	/*Os atributos de produto são: código, quantidade, unidade de medida, preço médio, saldo
-mínimo, saldo máximo, lote econômico de compra, local na prateleira, data da primeira
-compra, data da ultima compra, descrição e observação.*/
-
 	private int codigo;
 	private int quantidade;
 	private String descricao;	
-	private double unidadeDeMedida;
-	private double precoTotal;
+	private String unidadeDeMedida;
 	private double preco;
 	private double precoMedio;
 	private double saldoMinimo;
 	private double saldoMaximo;
-	private double loteEconomicoDeCompra;
+	private double loteEconomicoDeCompra; //não sei o que fazer
 	private int localNaPrateleira;
 	private Date dataDaPrimeiraCompra;
 	private Date dataDaUltimaCompra;
@@ -35,8 +28,9 @@ compra, data da ultima compra, descrição e observação.*/
 	
 	public static int quantidadeInstancias;
 	public static int saidasDeProdutos;
-	public static int nfSaidaContador = 1;;
-	public static int codigoGeral = 0001;
+	public static int nfSaidaContador = 0;
+	public static int codigoGeral = 1;
+	public static int LocalPrateleiraGeral = 1;
 
 	// Getters and Setters -------------------------------------------------------------------------------------
 	
@@ -47,17 +41,13 @@ compra, data da ultima compra, descrição e observação.*/
 	public void setQuantidade(int quantidade) {this.quantidade = quantidade;}
 
 	public String getDescricao() {return descricao;}
-	public void setDescricao(String descricao) {this.descricao = descricao;}
+	public void setDescricao(String descricao) {this.descricao = descricao;}	
 	
-	//apartir daqui, falta inserir no sistema
-	public double getUnidadeDeMedida() {return unidadeDeMedida;}
-	public void setUnidadeDeMedida(double unidadeDeMedida) {this.unidadeDeMedida = unidadeDeMedida;}
+	public String getUnidadeDeMedida() {return unidadeDeMedida;}
+	public void setUnidadeDeMedida(String unidadeDeMedida) {this.unidadeDeMedida = unidadeDeMedida;}
 	
 	public double getPreco() {return preco;}
 	public void setPreco(double preco) {this.preco = preco;}
-	
-	public double getPrecoTotal() {	return precoTotal;}
-	public void setPrecoTotal(double precoTotal) {this.precoTotal = precoTotal;}
 	
 	public double getPrecoMedio() {return precoMedio;}
 	public void setPrecoMedio(double precoMedio) {this.precoMedio = precoMedio;}
@@ -109,5 +99,4 @@ compra, data da ultima compra, descrição e observação.*/
 		
 		return Produt;
 		}
-
 }

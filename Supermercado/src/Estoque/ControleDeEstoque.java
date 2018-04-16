@@ -1,14 +1,6 @@
 package Estoque;
-
 public class ControleDeEstoque {
-
 	Produto pNovo = new Produto();
-
-	/*
-	 * Controle de Estoque: permitir que sejam feitas devoluções ou requisições
-	 * neste estoque.
-	 */
-
 	public static int dev = 0;
 
 	// 3 - TODAS AS SAIDAS REGISTRADAS - OK
@@ -22,7 +14,6 @@ public class ControleDeEstoque {
 			System.out.println("\n\n");
 		}
 	}
-
 	// 4 - SALDO ATUAL - OK
 	public void saldoEstoque() {
 		System.out.println("Saldo Estoque: ");
@@ -31,7 +22,6 @@ public class ControleDeEstoque {
 			System.out.println("\n------------------------------------------------");
 		}
 	}
-
 	// 5 - REQUISIÇÃO DE PRODUTOS - OK
 	public void requisicaoEstoque(String descricao, int qtd) {
 		boolean r = false;
@@ -65,7 +55,6 @@ public class ControleDeEstoque {
 		}
 
 	}
-
 	// 6 - DEVOLUÇÃO DE PRODUTOS - OK
 	public void devolver(String devolucao, int qtdDevolucao) {
 		boolean devEstoque = false;
@@ -81,9 +70,7 @@ public class ControleDeEstoque {
 						pSaldo.setDescricao(devolucao);
 						int qtd = pSaldo.getQuantidade() + qtdDevolucao;
 						pSaldo.setQuantidade(qtd);
-
 					}
-
 					devEstoque = true;
 
 					System.out.println("Produto Devolvido\n");
@@ -101,7 +88,6 @@ public class ControleDeEstoque {
 			System.out.println("Produto não consta na lista de requisitados!\n");
 		}
 	}
-
 	// 7 - CONSULTA ESTOQUE - OK
 	public void consultaProdutosAtivos(String descricao) {
 		boolean achou = false;
@@ -115,9 +101,7 @@ public class ControleDeEstoque {
 		if (achou == false) {
 			System.out.println("NÃO EXISTE! ");
 		}
-
 	}
-
 	// 8 - EXCLUIR PRODUTO - OK
 	public void excluir(String exclusao) {
 		if (Produto.produtoEntrada.size() > 0) {
@@ -136,7 +120,6 @@ public class ControleDeEstoque {
 
 			System.out.println("Excluido ProdutoEntrada");
 		}
-
 		if (Produto.produtoSaldo.size() > 0) {
 			int excluirSaldoContador = 0;
 
@@ -152,10 +135,8 @@ public class ControleDeEstoque {
 
 			System.out.println("Excluido ProdutoSaldo");
 		}
-
 		if (Produto.produtoSaida.size() > 0) {
 			int excluirSaidaContador = 0;
-
 			do {
 				for (Produto excluirSaida : Produto.produtoSaida) {
 					if (excluirSaida.getDescricao().equals(exclusao)) {
@@ -166,10 +147,7 @@ public class ControleDeEstoque {
 				}
 				excluirSaidaContador++;
 			} while (excluirSaidaContador <= Produto.produtoSaida.size());
-
 			System.out.println("Excluido ProdutoSaida");
-
 		}
 	}
-
 }
